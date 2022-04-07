@@ -152,9 +152,6 @@ function editEntry(entry){
         expenseTitle.value = ENTRY.title;
         expenseCategory.value = ENTRY.category;
         expenseDate.value = ENTRY.date;
-        document.querySelector('.bg-modal-income').style.display = "flex";
-        document.getElementById('income-text').innerHTML = "Edit Income";
-        document.getElementById('income-cancelDelete').innerHTML = "DELETE";
     }
     
     deleteEntry(entry);

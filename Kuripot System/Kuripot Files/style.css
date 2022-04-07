@@ -295,9 +295,9 @@ input[type=number] {
     vertical-align: middle;
 }
 
-.budget-dashboard #expense .bg-modal-expense .modal-contents input#expense-title-input, input#expense-amount-input, input#expense-category-input, input#expense-date-input{
+.budget-dashboard #expense .bg-modal-expense .modal-contents input#expense-title-input, input#expense-amount-input, select#expense-category-input, input#expense-date-input{
     height: 30px;
-    width : 250px;
+    width : 230px;
     padding-left: 10px;
     font-size: 1.2em;
     font-family: 'Gilroy';
@@ -414,7 +414,7 @@ input[type=number] {
     vertical-align: middle;
 }
 
-.budget-dashboard #income .bg-modal-income .modal-contents input#income-title-input, input#income-amount-input, input#income-category-input, input#income-date-input{
+.budget-dashboard #income .bg-modal-income .modal-contents input#income-title-input, input#income-amount-input, select#income-category-input, input#income-date-input{
     height: 30px;
     width : 250px;
     padding-left: 10px;
