@@ -78,6 +78,7 @@ addExpense.addEventListener("click", function(){
     updateUI();
     clearInput( [expenseTitle, expenseAmount, expenseCategory, expenseDate] )
     document.querySelector('.bg-modal-expense').style.display = "none";
+    
 })
 
 addIncome.addEventListener("click", function(){
@@ -253,6 +254,7 @@ document.getElementById('add-button-expense').addEventListener("click", function
     addElement.classList.add("move-in");
 	document.querySelector('.bg-modal-expense').style.display = "flex";
     document.getElementById('expense-cancelDelete').innerHTML = "CANCEL";
+    document.getElementById('expense-text').innerHTML = "Add Expense";
 });
 
 //CLOSE THE MODAL
@@ -267,7 +269,9 @@ document.getElementById('add-button-income').addEventListener("click", function(
     var addElement = document.getElementById("bg-modal-income");
     addElement.classList.add("move-in");
 	document.querySelector('.bg-modal-income').style.display = "flex";
-    document.getElementById('income-cancelDelete').innerHTML = "CANCEL";
+    document.getElementById('income-cancelDelete').innerHTML = "CANCEL";    
+    document.getElementById('income-text').innerHTML = "Add Income";
+
 });
 
 //CLOSE THE MODAL
