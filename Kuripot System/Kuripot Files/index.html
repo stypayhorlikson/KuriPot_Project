@@ -1,4 +1,3 @@
-<!-- www.youtube.com/CodeExplained -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +17,7 @@
                     Balance
                 </div>
                 <div class="value">
-                    <small>$</small>0
+                    <small>₱</small>0
                 </div>
             </div>
             <div class="account">
@@ -27,16 +26,16 @@
                         Income
                     </div>
                     <div class="income-total">
-                        <small>$</small>0
+                        <small>₱</small>0
                     </div>
                 </div>
                 <div class="chart"></div>
                 <div class="outcome">
                     <div class="title">
-                        Income
+                        Expense
                     </div>
                     <div class="outcome-total">
-                        <small>$</small>0
+                        <small>₱</small>0
                     </div>
                 </div>
             </div>
@@ -48,24 +47,48 @@
                 <div class="tab2">Income</div>
                 <div class="tab3 active">All</div>
             </div>
+
+            <!-- INCOME TAB -->
             <div class="hide" id="income">
                 <ul class="list"></ul>
-                <div class="input">
-                    <input type="text" id="income-title-input" name="title" placeholder="Title">
-                    <input type="number" id="income-amount-input" name="amount" placeholder="$0">
-                    <div class="add-income"><img src="icon/plus.png" alt=""></div>
+                <img id="add-button-income" class="button" src="icon/plus2.png" alt="">
+                <div id="bg-modal-income" class="bg-modal-income">
+                    <div class="modal-contents">
+                            <div id="income-text">Add Income</div>
+                            <input type="text" id="income-title-input" name="title" placeholder="Title">
+                            <input type="number" id="income-amount-input" name="amount" placeholder="₱0">
+                            <input type="text" id="income-category-input" name="category" placeholder="Category">
+                            <input type="date" id="income-date-input" name="date" placeholder="">
+                            <div class="add-income" id="income-add-button"><button class="button income-submit">SUBMIT</button></div>
+                            <div class="close-income" id="income-cancel"><button id="income-cancelDelete" class="button"></button></div>
+                    </div>
                 </div>
+                
             </div>
+
+            
+            <!-- EXPENSE TAB -->
             <div class="hide" id="expense">
                 <ul class="list"></ul>
-                <div class="input">
-                    <input type="text" id="expense-title-input" name="title" placeholder="Title">
-                    <input type="number" id="expense-amount-input" name="amount" placeholder="$0">
-                    <div class="add-expense"><img src="icon/plus.png" alt=""></div>
+                <img id="add-button-expense" class="button" src="icon/plus2.png" alt="">
+                <div id="bg-modal-expense" class="bg-modal-expense">
+                    <div class="modal-contents">
+                            <div id="expense-text">Add Expense</div>
+                            <input type="text" id="expense-title-input" name="title" placeholder="Title">
+                            <input type="number" id="expense-amount-input" name="amount" placeholder="₱0">
+                            <input type="text" id="expense-category-input" name="category" placeholder="Category">
+                            <input type="date" id="expense-date-input" name="date" placeholder="">
+                            <div class="add-expense" id="expense-add-button"><button class="button expense-submit">SUBMIT</button></div>
+                            <div class="close-expense" id="expense-cancel"><button id="expense-cancelDelete" class="button"></button></div>
+                    </div>
                 </div>
+                
             </div>
+
+            <!-- TRANSACTION HISTORY TAB -->
             <div id="all">
                 <ul class="list"></ul>
+                <p style="text-align: center; font-family: 'Gilroy Bold';">TRANSACTION HISTORY</p>
             </div>
         </div>
     </div>

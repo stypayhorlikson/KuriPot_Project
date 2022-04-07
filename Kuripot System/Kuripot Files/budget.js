@@ -1,5 +1,3 @@
-/* www.youtube.com/CodeExplained */
-
 // SELECT ELEMENTS
 const balanceEl = document.querySelector(".balance .value");
 const incomeTotalEl = document.querySelector(".income-total");
@@ -20,10 +18,14 @@ const allBtn = document.querySelector(".tab3");
 const addExpense = document.querySelector(".add-expense");
 const expenseTitle = document.getElementById("expense-title-input");
 const expenseAmount = document.getElementById("expense-amount-input");
+const expenseCategory = document.getElementById("expense-category-input");
+const expenseDate = document.getElementById("expense-date-input");
 
 const addIncome = document.querySelector(".add-income");
 const incomeTitle = document.getElementById("income-title-input");
 const incomeAmount = document.getElementById("income-amount-input");
+const incomeCategory = document.getElementById("income-category-input");
+const incomeDate = document.getElementById("income-date-input");
 
 // VARIABLES
 let ENTRY_LIST;
@@ -40,12 +42,15 @@ expenseBtn.addEventListener("click", function(){
     hide( [incomeEl, allEl] );
     active( expenseBtn );
     inactive( [incomeBtn, allBtn] );
+    document.querySelector('.bg-modal-expense').style.display = "none";
+    
 })
 incomeBtn.addEventListener("click", function(){
     show(incomeEl);
     hide( [expenseEl, allEl] );
     active( incomeBtn );
     inactive( [expenseBtn, allBtn] );
+    document.querySelector('.bg-modal-income').style.display = "none";
 })
 allBtn.addEventListener("click", function(){
     show(allEl);
@@ -56,34 +61,45 @@ allBtn.addEventListener("click", function(){
 
 addExpense.addEventListener("click", function(){
     // IF ONE OF THE INPUTS IS EMPTY => EXIT
-    if(!expenseTitle.value || !expenseAmount.value ) return;
-
+    if(!expenseTitle.value || !expenseAmount.value  || !expenseCategory.value || !expenseDate.value) {
+    alert("Fill in the missing fields!"); 
+    return;
+    }
     // SAVE THE ENTRY TO ENTRY_LIST
     let expense = {
         type : "expense",
         title : expenseTitle.value,
-        amount : parseInt(expenseAmount.value)
+        amount : parseInt(expenseAmount.value),
+        category : expenseCategory.value,
+        date : expenseDate.value
     }
     ENTRY_LIST.push(expense);
-
+    
     updateUI();
-    clearInput( [expenseTitle, expenseAmount] )
+    clearInput( [expenseTitle, expenseAmount, expenseCategory, expenseDate] )
+    document.querySelector('.bg-modal-expense').style.display = "none";
 })
 
 addIncome.addEventListener("click", function(){
     // IF ONE OF THE INPUTS IS EMPTY => EXIT
-    if(!incomeTitle.value || !incomeAmount.value ) return;
-
+    if(!incomeTitle.value || !incomeAmount.value || !incomeCategory.value || !incomeDate.value){
+    alert("Fill in the missing fields!");
+    return;}
+   
     // SAVE THE ENTRY TO ENTRY_LIST
     let income = {
         type : "income",
         title : incomeTitle.value,
-        amount : parseInt(incomeAmount.value)
+        amount : parseInt(incomeAmount.value),
+        category : incomeCategory.value,
+        date : incomeDate.value
     }
     ENTRY_LIST.push(income);
 
     updateUI();
-    clearInput( [incomeTitle, incomeAmount] )
+    clearInput( [incomeTitle, incomeAmount, incomeCategory, incomeDate] )
+    document.querySelector('.bg-modal-income').style.display = "none";
+
 })
 
 incomeList.addEventListener("click", deleteOrEdit);
@@ -114,14 +130,33 @@ function editEntry(entry){
     console.log(entry)
     let ENTRY = ENTRY_LIST[entry.id];
 
+    var addElement = document.getElementById("bg-modal-income");
+    addElement.classList.add("move-in");
+    document.querySelector('.bg-modal-expense').style.display = "flex";
+    document.getElementById('expense-text').innerHTML = "Edit Expense";
+    document.getElementById('expense-cancelDelete').innerHTML = "DELETE";
+
+    document.querySelector('.bg-modal-income').style.display = "flex";
+    document.getElementById('income-text').innerHTML = "Edit Income";
+    document.getElementById('income-cancelDelete').innerHTML = "DELETE";
+
     if(ENTRY.type == "income"){
         incomeAmount.value = ENTRY.amount;
         incomeTitle.value = ENTRY.title;
+        incomeCategory.value = ENTRY.category;
+        incomeDate.value = ENTRY.date;
+        
+        
     }else if(ENTRY.type == "expense"){
         expenseAmount.value = ENTRY.amount;
         expenseTitle.value = ENTRY.title;
+        expenseCategory.value = ENTRY.category;
+        expenseDate.value = ENTRY.date;
+        document.querySelector('.bg-modal-income').style.display = "flex";
+        document.getElementById('income-text').innerHTML = "Edit Income";
+        document.getElementById('income-cancelDelete').innerHTML = "DELETE";
     }
-
+    
     deleteEntry(entry);
 }
 
@@ -131,33 +166,34 @@ function updateUI(){
     balance = Math.abs(calculateBalance(income, outcome));
 
     // DETERMINE SIGN OF BALANCE
-    let sign = (income >= outcome) ? "$" : "-$";
+    let sign = (income >= outcome) ? "₱" : "-₱";
 
     // UPDATE UI
     balanceEl.innerHTML = `<small>${sign}</small>${balance}`;
-    outcomeTotalEl.innerHTML = `<small>$</small>${outcome}`;
-    incomeTotalEl.innerHTML = `<small>$</small>${income}`;
+    outcomeTotalEl.innerHTML = `<small>₱</small>${outcome}`;
+    incomeTotalEl.innerHTML = `<small>₱</small>${income}`;
 
     clearElement( [expenseList, incomeList, allList] );
 
     ENTRY_LIST.forEach( (entry, index) => {
         if( entry.type == "expense" ){
-            showEntry(expenseList, entry.type, entry.title, entry.amount, index)
+            showEntry(expenseList, entry.type, entry.title, entry.amount, entry.category, entry.date, index)
         }else if( entry.type == "income" ){
-            showEntry(incomeList, entry.type, entry.title, entry.amount, index)
+            showEntry(incomeList, entry.type, entry.title, entry.amount, entry.category, entry.date, index)
         }
-        showEntry(allList, entry.type, entry.title, entry.amount, index)
+        showEntry(allList, entry.type, entry.title, entry.amount, entry.category, entry.date, index)
     });
 
     updateChart(income, outcome);
 
     localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
+
 }
 
-function showEntry(list, type, title, amount, id){
+function showEntry(list, type, title, amount, category, date, id){
 
     const entry = ` <li id = "${id}" class="${type}">
-                        <div class="entry">${title}: $${amount}</div>
+                        <div class="entry">${title}: ₱${amount} (${category}) </br>${date}</div>
                         <div id="edit"></div>
                         <div id="delete"></div>
                     </li>`;
@@ -213,3 +249,33 @@ function inactive( elements ){
         element.classList.remove("active");
     })
 }
+
+//EASE-IN FADE THE ADD EXPENSE MODAL
+document.getElementById('add-button-expense').addEventListener("click", function() {
+    var addElement = document.getElementById("bg-modal-expense");
+    addElement.classList.add("move-in");
+	document.querySelector('.bg-modal-expense').style.display = "flex";
+    document.getElementById('expense-cancelDelete').innerHTML = "CANCEL";
+});
+
+//CLOSE THE MODAL
+document.querySelector('.close-expense').addEventListener("click", function() {
+	document.querySelector('.bg-modal-expense').style.display = "none";
+    clearInput( [expenseTitle, expenseAmount, expenseCategory, expenseDate] )
+    var addElement = document.getElementById("bg-modal-expense");
+});
+
+//EASE-IN FADE THE ADD INCOME MODAL
+document.getElementById('add-button-income').addEventListener("click", function() {
+    var addElement = document.getElementById("bg-modal-income");
+    addElement.classList.add("move-in");
+	document.querySelector('.bg-modal-income').style.display = "flex";
+    document.getElementById('income-cancelDelete').innerHTML = "CANCEL";
+});
+
+//CLOSE THE MODAL
+document.querySelector('.close-income').addEventListener("click", function() {
+	document.querySelector('.bg-modal-income').style.display = "none";
+    clearInput( [incomeTitle, incomeAmount, incomeCategory, incomeDate] )
+    var addElement = document.getElementById("bg-modal-income");
+});

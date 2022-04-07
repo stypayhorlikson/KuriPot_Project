@@ -14,6 +14,7 @@
 body{
     background-color: #222;
     font-family: 'Gilroy';
+    overflow: hidden;
 }
 
 *{
@@ -25,6 +26,8 @@ body{
     -ms-user-select: none;
     user-select: none;
 }
+
+
 
 /* REMOVE SPINNERS FROM NUMBER INPUT */
 /* Chrome, Safari, Edge, Opera */
@@ -38,6 +41,55 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+/* BG MODAL*/
+.bg-modal-expense, .bg-modal-income {
+    margin-top: -50px;
+	background-color: #5dc65b;
+	width: 360px;
+    height: 385px;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+    border-radius: 30px 30px 0 0;
+}
+
+.move-in {
+	opacity: 1;
+	animation-name: moveIn;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.5s;
+}
+
+@keyframes moveIn {
+    from {top: 200px;}
+    to {top: 0px;}
+    0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+  }
+
+.modal-contents {
+	margin-top: -50px;
+	width: 300px;
+    height: 250px;
+	text-align: center;
+	position: relative;
+	border-radius: 20px;
+    
+}
+
+.bg-modal-expense .modal-contents, .bg-modal-income .modal-contents{
+    color: #ffffff;
+    font-size: 1em;
+    font-family: 'Gilroy Bold';
+}
+
 .budget-container{
     position: absolute;
     width: 360px;
@@ -45,7 +97,7 @@ input[type=number] {
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    background-color: #5DC65B;
+    background-color: #5dc65b;
 }
 
 .budget-container .app-title .kuripot-title img{
@@ -243,31 +295,46 @@ input[type=number] {
     vertical-align: middle;
 }
 
-.budget-dashboard #expense .input input#expense-title-input{
-    height: 40px;
-    width : 150px;
+.budget-dashboard #expense .bg-modal-expense .modal-contents input#expense-title-input, input#expense-amount-input, input#expense-category-input, input#expense-date-input{
+    height: 30px;
+    width : 250px;
     padding-left: 10px;
     font-size: 1.2em;
     font-family: 'Gilroy';
     margin: 5px;
     margin-left: 10px;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px 10px 10px 10px;
     border: none;
 }
 
-.budget-dashboard #expense .input input#expense-amount-input{
-    height: 40px;
-    width : 110px;
-    padding-left: 10px;
-    font-size: 1.2em;
-    font-family: 'Gilroy';
-    margin: 5px;
-    margin-left: -10px;
-    border-radius: 0 10px 10px 0;
-    border: none;
+.budget-dashboard #expense .bg-modal-expense .modal-contents #expense-text {
+    font-family: 'Gilroy Bold';
+    font-size: 20px;
 }
 
-.budget-dashboard #expense .input .add-expense img{
+.budget-dashboard #expense .bg-modal-expense .modal-contents .button {
+    font-family: 'Gilroy Bold';
+    background-color: #ffffff;
+    border: none;
+    color: #145a13;
+    padding: 10px 32px;
+    width : 200px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+  }
+  
+
+.budget-dashboard #expense img{
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -327,6 +394,7 @@ input[type=number] {
 }
 
 /* /////// INCOME //////// */
+
 .budget-dashboard #income{
     width: 360px;
     height: 339px;
@@ -346,31 +414,46 @@ input[type=number] {
     vertical-align: middle;
 }
 
-.budget-dashboard #income .input input#income-title-input{
-    height: 40px;
-    width : 150px;
+.budget-dashboard #income .bg-modal-income .modal-contents input#income-title-input, input#income-amount-input, input#income-category-input, input#income-date-input{
+    height: 30px;
+    width : 250px;
     padding-left: 10px;
     font-size: 1.2em;
     font-family: 'Gilroy';
     margin: 5px;
     margin-left: 10px;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px 10px 10px 10px;
     border: none;
 }
 
-.budget-dashboard #income .input input#income-amount-input{
-    height: 40px;
-    width : 110px;
-    padding-left: 10px;
-    font-size: 1.2em;
-    font-family: 'Gilroy';
-    margin: 5px;
-    margin-left: -10px;
-    border-radius: 0 10px 10px 0;
-    border: none;
+.budget-dashboard #income .bg-modal-income .modal-contents #income-text {
+    font-family: 'Gilroy Bold';
+    font-size: 20px;
 }
 
-.budget-dashboard #income .input .add-income img{
+.budget-dashboard #income .bg-modal-income .modal-contents .button {
+    font-family: 'Gilroy Bold';
+    background-color: #ffffff;
+    border: none;
+    color: #145a13;
+    padding: 10px 32px;
+    width : 200px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px 10px 10px 10px;
+  }
+  
+
+.budget-dashboard #income img{
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
     width: 40px;
     height: 40px;
     cursor: pointer;
@@ -404,6 +487,7 @@ input[type=number] {
     margin-bottom: 10px;;
     word-wrap: break-word;
     font-family: 'Gilroy Bold';
+    color: #000000;
 }
 
 .budget-dashboard #income ul.list li #edit{
