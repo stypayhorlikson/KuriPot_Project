@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector("#linkForgotPassword").addEventListener("click", e => {
         e.preventDefault();
-        createAccountForm.classList.add("form--hidden");
+        loginForm.classList.add("form--hidden");
         forgotPasswordForm.classList.remove("form--hidden");
     });
 
