@@ -19,6 +19,7 @@ function clearInputError(inputElement) {
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login");
     const createAccountForm = document.querySelector("#createAccount");
+    const forgotPasswordForm = document.querySelector("#forgotPassword");
 
     document.querySelector("#linkCreateAccount").addEventListener("click", e => {
         e.preventDefault();
@@ -30,6 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         loginForm.classList.remove("form--hidden");
         createAccountForm.classList.add("form--hidden");
+        forgotPasswordForm.classList.add("form--hidden");
+    });
+
+    document.querySelector("#linkForgotPassword").addEventListener("click", e => {
+        e.preventDefault();
+        createAccountForm.classList.add("form--hidden");
+        forgotPasswordForm.classList.remove("form--hidden");
     });
 
     loginForm.addEventListener("submit", e => {
